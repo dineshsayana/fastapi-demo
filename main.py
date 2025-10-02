@@ -36,6 +36,22 @@ async def create_product(product: Products):
     products.append(product)
     return product
 
+@app.put("/product")
+async def update_product(id: int, updated_product: Products):
+    for index, product in enumerate(products):
+        if product.id == id:
+            products[index] = updated_product
+            return updated_product
+    return {"message": "Product not found"}
+
+@app.delete("/product")
+async def delete_product(id: int):
+    for index, product in enumerate(products):
+        if product.id == id:
+            del products[index]
+            return {"message": "Product deleted successfully"}
+    return {"message": "Product not found"}
+
 
 # def main():
 #     print("Hello from fastapi-demo!")
